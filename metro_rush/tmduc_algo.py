@@ -81,12 +81,16 @@ class BruteForce(RGraph):
                 nxt_route, nxt_station = path[idx+1]
                 id_start = s_route.stations.index(s_station)
                 id_end = s_route.stations.index(nxt_station)
+
                 if temp and s_station == temp[-1]:
                     temp.append(s_route)
                 else:
                     temp.append(s_station)
                     temp.append(s_route)
                 if id_start > id_end:
+                    if id_end == 0:
+                        # This condition to fix missing station when end id = 0
+                        id_end += 1
                     temp.extend(s_route.stations[id_start-1:id_end-1:-1])
                 else:
                     temp.extend(s_route.stations[id_start+1:id_end+1])
@@ -140,11 +144,11 @@ class BruteForce(RGraph):
             for train in self.trains:
                 next_pos = self.pick_next_pos_for_train(train, filled_paths)
                 train.move_to(next_pos)
-                print(train.id, train.path)
+                print(train.id, train.path[-1])
                 print()
             turn += 1
-            if turn == 3:
-                break
+            # if turn == 3:
+                # break
 
 
     def run_algo(self):
@@ -152,6 +156,9 @@ class BruteForce(RGraph):
         self.__brute_force_routes(self.start_route, e_routes)
         paths_w_transf_stations = self.__bruteforce_transf_station_paths()
         filled_paths = self.__fill_paths_w_stations(paths_w_transf_stations)
+        # print('Result:', filled_paths[0])
+        # print(filled_paths[1])
+        # print('='*50)
         self.move_trains(filled_paths)
 
 
