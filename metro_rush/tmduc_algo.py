@@ -12,6 +12,18 @@ class BruteForce(RGraph):
         self.solutions = []
 
 
+    def _get_cross_routes(self, station):
+        '''
+        Get all the routes go through the station
+        '''
+        assert type(station) is Station
+        cross_routes = set()
+        for route in self.routes:
+            if station in self.routes[route].stations:
+                cross_routes.add(self.routes[route])
+        return list(cross_routes)
+
+
     def __brute_force_routes(self, s_route, e_routes, path=[]):
         if s_route in e_routes:
             self.solutions.append(path + [s_route])
@@ -24,22 +36,17 @@ class BruteForce(RGraph):
             path.remove(s_route)
 
 
-    def _get_cross_routes(self, station):
-        assert type(station) is Station
-        cross_routes = set()
-        for route in self.routes:
-            if station in self.routes[route].stations:
-                cross_routes.add(self.routes[route])
-        return list(cross_routes)
-
-
     def __get_stn_paths(self):
+        '''
+        Add the transfer stations for each route in the paths
+        '''
         route_ls = []
         for path in self.solutions:
             temp = []
             for idx in range(len(path) - 1):
-                key = self._get_key_name(path[idx], path[idx+1])
-                temp.append((path[idx+1],list(self.edges[key])))
+                temp.append((path[idx+1],
+                             list(self.routes[path[idx].name].neighbors[path[idx+1]])
+                             ))
             route_ls.append(temp)
         return route_ls
 
@@ -53,6 +60,9 @@ class BruteForce(RGraph):
                 temp = []
                 for sub_transf_stn in transf_stns:
                     for temp_transf_stn in transf_stn_ls:
+                        visited_transf_stns = [item[1] for item in temp_transf_stn]
+                        if sub_transf_stn in visited_transf_stns:
+                            continue
                         temp.append(temp_transf_stn + [(route, sub_transf_stn)])
                 transf_stn_ls = temp
         return transf_stn_ls
@@ -83,6 +93,8 @@ class BruteForce(RGraph):
                 id_end = s_route.stations.index(nxt_station)
 
                 if temp and s_station == temp[-1]:
+                    temp.append(s_route)
+                elif temp and s_station == temp[-2]:
                     temp.append(s_route)
                 else:
                     temp.append(s_station)
@@ -119,7 +131,9 @@ class BruteForce(RGraph):
 
     def pick_next_pos_for_train(self, train, filled_paths):
         current_pos_train = train.path[-1]
+        # print('+'*50)
         for path in filled_paths:
+            # print(path)
             if current_pos_train in path[:-1]:
                 idx_pos_in_path = path.index(current_pos_train)
                 nxt_pos = path[idx_pos_in_path+1]
@@ -127,39 +141,51 @@ class BruteForce(RGraph):
                     current_transf_station = train.path[-2]
                     transf_station_for_route_in_path = path[idx_pos_in_path-1]
                     if current_transf_station is transf_station_for_route_in_path:
-                        if not nxt_pos.visited:
+                        if type(nxt_pos) is Route:
+                            return nxt_pos
+                        elif not nxt_pos.visited and nxt_pos not in train.path:
                             return nxt_pos
                 else:
                     if type(nxt_pos) is Route:
                         return nxt_pos
-                    elif not nxt_pos.visited or nxt_pos is self.end:
+                    elif (not nxt_pos.visited and nxt_pos not in train.path or
+                         nxt_pos is self.end and nxt_pos not in train.path):
                         return nxt_pos
 
 
     def move_trains(self, filled_paths):
-        turn = 0
+        turn = 1
         while not self.trains_reach_dest():
             print('='*50)
             print('Turn', turn)
             for train in self.trains:
                 next_pos = self.pick_next_pos_for_train(train, filled_paths)
+                print('Train', train.id)
+                print(train.id, next_pos)
                 train.move_to(next_pos)
-                print(train.id, train.path[-1])
+                print(train.id, train.path, len(train.path))
                 print()
             turn += 1
-            # if turn == 3:
-                # break
+            if turn == 3:
+                break
 
 
     def run_algo(self):
         e_routes = self._get_cross_routes(self.end)
         self.__brute_force_routes(self.start_route, e_routes)
+        # print(self.solutions)
         paths_w_transf_stations = self.__bruteforce_transf_station_paths()
+        # for item in paths_w_transf_stations:
+        #     print(item, len(item))
         filled_paths = self.__fill_paths_w_stations(paths_w_transf_stations)
-        # print('Result:', filled_paths[0])
-        # print(filled_paths[1])
-        # print('='*50)
-        self.move_trains(filled_paths)
+        # filled_paths = filled_paths[:3]
+        # filled_paths.reverse()
+        # print(filled_paths)
+        # filled_paths = [filled_paths[1], filled_paths[2]]
+        # for item in filled_paths[:6]:
+        #     print(item, len(item))
+        #     print()
+        self.move_trains(filled_paths[:6])
 
 
 if __name__ == '__main__':

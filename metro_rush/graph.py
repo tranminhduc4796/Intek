@@ -127,7 +127,13 @@ class RGraph:
             assert type(dst_route) is Route
             src_route._add_neighbor(dst_route, station)
             dst_route._add_neighbor(src_route, station)
-
+            for route in self.routes:
+                route = self.routes[route]
+                if station in route.stations:
+                    if (dst_route is not route and
+                        dst_route not in route.neighbors):
+                        route._add_neighbor(dst_route, station)
+                        dst_route._add_neighbor(route, station)
 
 
     def __has_station(self, name):
@@ -171,4 +177,7 @@ class RGraph:
 if __name__ == '__main__':
     graph = RGraph()
     graph.build('delhi-metro-stations')
-    graph.summary()
+    # graph.summary()
+    print(graph.routes['Red'].neighbors)
+    print(graph.routes['Violet'].neighbors)
+    print(graph.routes['Yellow'].neighbors)
