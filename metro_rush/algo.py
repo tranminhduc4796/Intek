@@ -154,13 +154,17 @@ class BruteForce(RGraph):
 
     def move_trains(self, filled_paths):
         turn = 1
+        limit_num = len(filled_paths)
+        limit_update_train = 0
         while not self.trains_reach_dest():
             dic = {}
             print('Turn:', turn)
             print('='*50)
-            for train in self.trains:
+            limit_update_train += limit_num
+            for idx, train in enumerate(self.trains):
                 next_pos = self.pick_next_pos_for_train(train, filled_paths)
-                train.move_to(next_pos)
+                if idx < limit_update_train:
+                    train.move_to(next_pos)
                 current_station = train.current_station
                 current_route = train.current_route
                 id_station = current_route.stations.index(current_station) + 1
@@ -210,7 +214,6 @@ class BruteForce(RGraph):
             visited.extend(temp)
             if temp:
                 out.append(path[:2] + temp + [path[-1]])
-
         return out
 
 
@@ -221,6 +224,8 @@ class BruteForce(RGraph):
         filled_paths = self.__fill_paths_w_stations(paths_w_transf_stations)
         if self.end_in_middle_route(e_routes):
             filled_paths = self.prune_filled_paths(filled_paths)
+        # for item in filled_paths:
+            # print(item)
         self.move_trains(filled_paths)
 
 
