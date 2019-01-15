@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from sys import argv
+import sys
 from station import Station
 from route import Route
 from graph import RGraph
@@ -7,5 +7,8 @@ from algo import BruteForce
 
 if __name__ == '__main__':
     algo = BruteForce()
-    algo.build(argv[-1])
+    try:
+        algo.build(sys.argv[-1])
+    except Exception:
+        print('Invalid File', file=sys.stderr)
     algo.run_algo()
