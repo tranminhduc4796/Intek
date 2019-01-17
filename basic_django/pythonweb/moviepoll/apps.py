@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MoviepollConfig(AppConfig):
+class MoviePollConfig(AppConfig):
     name = 'moviepoll'
