@@ -1,14 +1,44 @@
 {% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'moviepoll/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+</head>
 
-<link rel="stylesheet" type="text/css" href="{% static 'moviepoll/style.css' %}">
+<header class="top">
+    <a  href="{% url 'moviepoll:index' %}" class="top-a">Black Friday Movie</a>
+    <input type="text" placeholder="Find Polls, Movies, and more...">
+    <a href="#" class="fa fa-facebook"></a>
+    <a href="#" class="fa fa-twitter"></a>
+    <a href="#" class="fa fa-google"></a>
+    <a href="#" class="fa fa-linkedin"></a>
+</header>
 
 
+<body>
 {% if latest_question_list %}
-    <ul>
+    <div>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'moviepoll:detail' question.id %}">{{ question.question_text }}</a></li>
+        <div class="poll">
+            <p>
+                <a href="{% url 'moviepoll:detail' question.id %}" class="poll-topic">
+                    {{ question.question_text }}
+                </a>
+            </p>
+            <div>
+            {% for choice in question.choice_set.all %}
+                <div class="list_choice">
+                    <img src="{{ choice.choice_poster_link }}" class="poster">
+                    {{ choice.choice_text }}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
     {% endfor %}
-    </ul>
+    </div>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+</body>
