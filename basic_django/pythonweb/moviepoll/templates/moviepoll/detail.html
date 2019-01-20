@@ -1,12 +1,35 @@
-<h1>{{ question.question_text }}</h1>
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'moviepoll/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+</head>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<header class="top">
+        <a  href="{% url 'moviepoll:index' %}" class="top-a">Black Friday Movie</a>
+        <input type="text" placeholder="Find Polls, Movies, and more...">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-google"></a>
+        <a href="#" class="fa fa-linkedin"></a>
+</header>
 
-<form action="{% url 'moviepoll:vote' question.id %}" method="post">
-{% csrf_token %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-{% endfor %}
-<input type="submit" value="Vote">
-</form>
+
+<body>
+    <h1 class="poll-topic">{{ question.question_text }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'moviepoll:vote' question.id %}" method="post" class="option-board">
+        {% csrf_token %}
+        <h5 class="option-instruct">Vote the movie you wish to see</h5>
+        {% for choice in question.choice_set.all %}
+            <div class="option">
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                <br>
+            </div>
+        {% endfor %}
+        <input type="submit" value="Vote" class="form-submit-button">
+    </form>
+</body>

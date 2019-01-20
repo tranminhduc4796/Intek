@@ -10,6 +10,7 @@ class ChoiceInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['question_text']}),
+        ('Content',          {'fields': ['content']}),
         ('Date information', {'fields': ['pub_date'],
                               'classes': ['collapse']}),
     ]

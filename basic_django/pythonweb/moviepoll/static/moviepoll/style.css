@@ -29,7 +29,7 @@ li a {
 }
 
 .fa {
-    padding: 20px;
+    padding: 15px;
     font-size: 30px;
     width: 20px;
     text-align: center;
@@ -54,29 +54,112 @@ li a {
  }
 
 .poll {
-    border-color: aliceblue;
-    background-color: aliceblue;
+    border-color: black;
+    background-color: black;
     margin: 15px 0px;
     border-radius: 5px;
     padding: 2px;
 }
 
 .poll-topic {
-    font-family: 'Major Mono Display', monospace;
+    font-family: 'Lobster';
     font-size: 20px;
-    color: black;
+    color: white;
     font-weight: bold;
-    padding-left: 15px;
+    text-align: center;
+    margin-left: -2px;
+    background-color: orangered;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-.list_choice {
-    display: inline;
-    margin: 15px 15px;
+.poll-content {
     font-family: 'Karla', sans-serif;
     text-align: center;
+    color: white;
+    text-align: left;
+    margin: 10px;
+}
+
+figure.item {
+    /* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+    /* To horizontally center images and caption */
+    text-align: center;
+    /* The width of the container also implies margin around the images. */
+    width: 325px;
 }
 
 .poster {
     width: 200px;
     height: 300px;
+    background-color: grey;
 }
+
+.caption {
+    /* Make the caption a block so it occupies its own line. */
+    display: block;
+    font-family: Lobster;
+    font-size: 20px;
+    background-color: gold;
+}
+
+.option {
+    display: block;
+    font-family: Lobster;
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin: 5px -10px;
+    background-color: gold;
+    width: 300px;
+    padding: 5px;
+}
+
+.option-board {
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.option-instruct {
+    color: white;
+    font-size: 20px;
+    font-family: Lobster;
+    border-left: 0px;
+    border-color: white;
+    border-style: dashed;
+    padding: 5px;
+    margin-left: -10px;
+    margin-bottom: 0px;
+    width: 300px;
+}
+
+.form-submit-button {
+    background: gold;
+    font-family: Lobster; 
+    color: black;
+    padding: 5px;
+    width: 100px;
+    border: none;
+    margin-left: -10px;
+    margin-bottom: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+    
+.form-submit-button:hover {
+    background: #016ABC;
+    font-family: Lobster;
+    color: black;
+    padding: 5px;
+    width: 100px;
+    border: none;
+    margin-left: -10px;
+    margin-bottom: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+    
+    

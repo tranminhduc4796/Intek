@@ -27,12 +27,15 @@
                     {{ question.question_text }}
                 </a>
             </p>
+            <p class="poll-content">
+                {{ question.content }}
+            </p>
             <div>
             {% for choice in question.choice_set.all %}
-                <div class="list_choice">
-                    <img src="{{ choice.choice_poster_link }}" class="poster">
-                    {{ choice.choice_text }}
-                </div>
+                <figure class="item">
+                    <img src="{{ choice.choice_poster_link }}" class="poster"/>
+                    <figcaption class="caption">{{ choice.choice_text }}</figcaption>
+                </figure>
             {% endfor %}
             </div>
         </div>
