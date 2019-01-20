@@ -103,6 +103,14 @@ figure.item {
     font-family: Lobster;
     font-size: 20px;
     background-color: gold;
+
+}
+
+.option-board {
+    display: block;
+    background-color: black;
+    /* padding: 10px; */
+    border-radius: 10px;
 }
 
 .option {
@@ -111,55 +119,118 @@ figure.item {
     font-size: 20px;
     text-align: left;
     color: black;
-    margin: 5px -10px;
+    margin-top: 5px;
     background-color: gold;
     width: 300px;
     padding: 5px;
-}
-
-.option-board {
-    background-color: black;
-    padding: 10px;
-    border-radius: 10px;
 }
 
 .option-instruct {
     color: white;
     font-size: 20px;
     font-family: Lobster;
+    text-align: center;
     border-left: 0px;
     border-color: white;
     border-style: dashed;
     padding: 5px;
-    margin-left: -10px;
-    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-bottom: 10px;
     width: 300px;
 }
 
 .form-submit-button {
+    display: block;
+    margin-top: 10px;
     background: gold;
     font-family: Lobster; 
     color: black;
     padding: 5px;
     width: 100px;
     border: none;
-    margin-left: -10px;
-    margin-bottom: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    text-decoration: none;
 }
     
 .form-submit-button:hover {
+    display: block;
+    margin-top: 10px;
     background: #016ABC;
     font-family: Lobster;
     color: black;
     padding: 5px;
     width: 100px;
     border: none;
-    margin-left: -10px;
-    margin-bottom: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    text-decoration: none;
+}
+
+.form-vote-button {
+    text-align: center;
+    background: green;
+    font-family: Lobster; 
+    color: black;
+    padding: 5px;
+    width: 100px;
+    margin-left: 45%;
+    text-decoration: none;
+    border-radius: 5px;
 }
     
-    
+.form-vote-button:hover {
+    text-align: center;
+    background: #016ABC;
+    font-family: Lobster;
+    color: black;
+    padding: 5px;
+    width: 100px;
+    margin-left: 45%;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+.inline_ls {
+    display: inline-block;
+    margin-top: 0px;
+}
+
+.inline_album {
+    display: inline-block;
+    margin-left: 50px;
+    margin-bottom: -50px;
+}
+
+figure.mini_item {
+    /* To correctly align image, regardless of content height: */
+    display: inline-block;
+    /* To horizontally center images and caption */
+    text-align: center;
+    /* The width of the container also implies margin around the images. */
+    width: 205px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.mini_poster {
+    width: 150px;
+    height: 200px;
+    background-color: grey;
+}
+
+.mini_caption {
+    /* Make the caption a block so it occupies its own line. */
+    font-family: Lobster;
+    font-size: 15px;
+    background-color: gold;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 25px;
+}
+
+.result {
+    margin-top: -5px;
+    margin-bottom: -5px;
+}

@@ -1,9 +1,42 @@
-<h1>{{ question.question_text }}</h1>
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'moviepoll/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+</head>
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+<header class="top">
+        <a  href="{% url 'moviepoll:index' %}" class="top-a">Black Friday Movie</a>
+        <input type="text" placeholder="Find Polls, Movies, and more...">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-google"></a>
+        <a href="#" class="fa fa-linkedin"></a>
+</header>
 
-<a href="{% url 'moviepoll:detail' question.id %}">Vote again?</a>
+<body>
+    <h1 class="poll-topic">{{ question.question_text }}</h1>
+    <form class="option-board">
+        <div class="inline_ls">
+            <h5 class="option-instruct">Result</h5> 
+            {% for choice in question.choice_set.all %}
+            <div class="option">
+                <p class="result">{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</p>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="inline_album">
+                {% for choice in question.choice_set.all %}
+                    <figure class="mini_item">
+                        <img src="{{ choice.choice_poster_link }}" class="mini_poster"/>
+                        <figcaption class="mini_caption">{{ choice.choice_text }}</figcaption>
+                    </figure>
+                {% endfor %}
+        </div>
+    <br>
+    <a class="form-submit-button" href="{% url 'moviepoll:detail' question.id %}">Vote again?</a>
+    </form>
+</body>

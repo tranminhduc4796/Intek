@@ -22,14 +22,26 @@
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     <form action="{% url 'moviepoll:vote' question.id %}" method="post" class="option-board">
         {% csrf_token %}
-        <h5 class="option-instruct">Vote the movie you wish to see</h5>
-        {% for choice in question.choice_set.all %}
-            <div class="option">
-                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
-                <br>
+        <div>
+            <div class="inline_ls">
+                <h5 class="option-instruct">Vote the movie you wish to see</h5>
+                {% for choice in question.choice_set.all %}
+                    <div class="option">
+                        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+            <div class="inline_album">
+                {% for choice in question.choice_set.all %}
+                    <figure class="mini_item">
+                        <img src="{{ choice.choice_poster_link }}" class="mini_poster"/>
+                        <figcaption class="mini_caption">{{ choice.choice_text }}</figcaption>
+                    </figure>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
         <input type="submit" value="Vote" class="form-submit-button">
     </form>
 </body>

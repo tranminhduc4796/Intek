@@ -38,6 +38,9 @@
                 </figure>
             {% endfor %}
             </div>
+            <a href="{% url 'moviepoll:detail' question.id %}" class="form-vote-button">
+               Vote Here
+            </a>
         </div>
     {% endfor %}
     </div>
