@@ -1,11 +1,13 @@
-li a {
-    color: green;
-}
-
 .top {
     background-color: black;
     border-radius: 10px;
     overflow: hidden;
+}
+
+
+.search-bar {
+    display: inline-block;
+    margin-left: 10%;
 }
 
 .top-a {
@@ -39,6 +41,7 @@ li a {
 
 .fa-facebook {
     color: white;
+    margin-left: 10%;
  }
   
 .fa-twitter {
@@ -88,7 +91,7 @@ figure.item {
     /* To horizontally center images and caption */
     text-align: center;
     /* The width of the container also implies margin around the images. */
-    width: 325px;
+    width: 27%;
 }
 
 .poster {
@@ -101,8 +104,10 @@ figure.item {
     /* Make the caption a block so it occupies its own line. */
     display: block;
     font-family: Lobster;
+    color: black;
     font-size: 20px;
     background-color: gold;
+    text-decoration: none;
 
 }
 
