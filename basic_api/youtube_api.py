@@ -13,7 +13,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-
+from requests_toolbelt.utils import dump
 
 def get_request():
     """
@@ -41,11 +41,13 @@ if __name__ == "__main__":
     client_secret_file = 'client_secret.json'
     url = 'https://www.googleapis.com/youtube/v3/'
     request = get_request()
-    print(request['param'])
     credential_token = get_credential_token()
     if request['method'] == 'download' or request['method'] == 'list':
         response = requests.get(url=url + request['resource'], 
                                 params=request['param'],
                                 headers={'Authorization': 'Bearer %s' % credential_token})
-    print(response.json())
-
+        # response = requests.get(url=url + request['resource'] + '?part=snippet%2CcontentDetails&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=25&key=AIzaSyA8zMEUSdoPLidTcMiyGUvLdRGRx2_V89A')
+    # print('Parameter:\n', request['param'])
+    data = dump.dump_all(response)
+    print('Data:\n', data.decode('utf-8'))
+    # print('Response:\n', response.text)

@@ -8,9 +8,10 @@
     },
 
     "param": {
-        "part": "snippet%2CcontentDetails",
-        "channelID": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
-        "maxResults": 25
+        "part": "snippet,contentDetails",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "maxResults": 5,
+        "key": "AIzaSyA8zMEUSdoPLidTcMiyGUvLdRGRx2_V89A"
     },
 
     "data": {
