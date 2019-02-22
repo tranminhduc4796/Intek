@@ -15,7 +15,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 from requests_toolbelt.utils import dump
 
-def get_request():
+def read_config():
     """
     Read the file config.json to get the request
     """
@@ -34,20 +34,39 @@ def get_credential_token():
     return credentials.token
 
 
+def get_request(url, resource, params=None, headers=None, response_file=None):
+    response = requests.get(url=url + resource, 
+                            params=params,
+                            headers=headers)
+    if response_file:
+        with open(response_file, 'w+') as f:
+                f.write(response.text)
+    return response
+
 if __name__ == "__main__":
     scope = ['https://www.googleapis.com/auth/youtube']
     api_service_name = 'youtube'
     api_version = 'v3'
     client_secret_file = 'client_secret.json'
     url = 'https://www.googleapis.com/youtube/v3/'
-    request = get_request()
+    info = read_config()
     credential_token = get_credential_token()
-    if request['method'] == 'download' or request['method'] == 'list':
-        response = requests.get(url=url + request['resource'], 
-                                params=request['param'],
-                                headers={'Authorization': 'Bearer %s' % credential_token})
-        # response = requests.get(url=url + request['resource'] + '?part=snippet%2CcontentDetails&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=25&key=AIzaSyA8zMEUSdoPLidTcMiyGUvLdRGRx2_V89A')
-    # print('Parameter:\n', request['param'])
+    headers = info['headers']
+    headers['Authorization'] = 'Bearer {}'.format(credential_token)  # For authentication
+    get_method_ls = ['download', 'list', 'getRating']
+    post_method_ls = ['insert', 'setModerationStatus', 'markAsSpam', 'set', 'rate', 'reportAbuse', 'unset']
+    # Methods with GET HTTP method
+    if info['method'] in get_method_ls:
+        if info['method'] == 'getRating':
+            if info['resource'] == 'videos':
+                response = get_request(url, info['resource'], params=info['param'], headers=headers) 
+            else:
+                raise ValueError('This resource does not support this method')
+        else:
+            response = get_request(url, info['resource'], params=info['param'], headers=headers)
+    # Methods with POST HTTP method  
+    elif request['method'] in post_method_ls:
+
+
     data = dump.dump_all(response)
     print('Data:\n', data.decode('utf-8'))
-    # print('Response:\n', response.text)

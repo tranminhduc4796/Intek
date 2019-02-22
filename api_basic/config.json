@@ -15,6 +15,15 @@
     },
 
     "data": {
-        "key": "value"
+        "key": "value",
+        "key1": [
+            "value1",
+            "value2"
+           ],
+        "key2": [
+               0,
+               1,
+               2
+           ]
     }
 }
