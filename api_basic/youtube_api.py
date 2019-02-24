@@ -30,43 +30,52 @@ def get_credential_token():
     https://console.developers.google.com/start/api?id=youtube
     """
     flow = InstalledAppFlow.from_client_secrets_file(client_secret_file, scope)
-    credentials = flow.run_console()
+    credentials = flow.run_local_server()
     return credentials.token
 
 
-def get_request(url, resource, params=None, headers=None, response_file=None):
-    response = requests.get(url=url + resource, 
-                            params=params,
-                            headers=headers)
-    if response_file:
-        with open(response_file, 'w+') as f:
-                f.write(response.text)
+def save_file(file, response):
+    with open(file, 'w+') as f:
+            f.write(response.text)
+
+
+def request(method, url, params=None, headers=None,
+                body=None, file=None, response_file=None):
+    dic = {
+           "get": requests.get,
+           "post": requests.post,
+           "put": requests.post,
+           "delete": requests.delete
+          }
+    request_operation = dic.get(method, None)
+    if request_operation:
+        if method == "get":
+            response = request_operation(url, params=params, headers=headers)
+        elif not file:
+            response = request_operation(url, params=params, headers=headers,
+                                     json=body)
+        else:
+            response = request_operation(url, params=params, headers=headers,
+                                     json=body, files=file)
+        if response_file:
+            save_file(response_file, response)
     return response
 
+
 if __name__ == "__main__":
-    scope = ['https://www.googleapis.com/auth/youtube']
-    api_service_name = 'youtube'
-    api_version = 'v3'
+    scope = ['https://www.googleapis.com/auth/youtube',
+             'https://www.googleapis.com/auth/youtube.force-ssl']
     client_secret_file = 'client_secret.json'
-    url = 'https://www.googleapis.com/youtube/v3/'
     info = read_config()
-    credential_token = get_credential_token()
-    headers = info['headers']
-    headers['Authorization'] = 'Bearer {}'.format(credential_token)  # For authentication
-    get_method_ls = ['download', 'list', 'getRating']
-    post_method_ls = ['insert', 'setModerationStatus', 'markAsSpam', 'set', 'rate', 'reportAbuse', 'unset']
-    # Methods with GET HTTP method
-    if info['method'] in get_method_ls:
-        if info['method'] == 'getRating':
-            if info['resource'] == 'videos':
-                response = get_request(url, info['resource'], params=info['param'], headers=headers) 
-            else:
-                raise ValueError('This resource does not support this method')
-        else:
-            response = get_request(url, info['resource'], params=info['param'], headers=headers)
-    # Methods with POST HTTP method  
-    elif request['method'] in post_method_ls:
-
-
+    credentials = get_credential_token()
+    # For authentication
+    info['headers']['Authorization'] = 'Bearer {}'.format(credentials)
+    response = request(info['method'],
+                       info['url'],
+                       params=info['param'],
+                       headers=info['headers'],
+                       body=info['body'],
+                       file=info['file'],
+                       response_file='response')
     data = dump.dump_all(response)
     print('Data:\n', data.decode('utf-8'))

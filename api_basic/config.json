@@ -1,29 +1,18 @@
 {
-    "resource": "activities",
+    "url": "https://www.googleapis.com/youtube/v3/playlists",
 
-    "method": "list",
+    "method": "delete",
 
     "headers":{
         "field1": "value"
     },
 
     "param": {
-        "part": "snippet,contentDetails",
-        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
-        "maxResults": 5,
+        "id": "PLTRGsGjTjRlVooLakB217tPLHzlGONdjr",
         "key": "AIzaSyA8zMEUSdoPLidTcMiyGUvLdRGRx2_V89A"
     },
 
-    "data": {
-        "key": "value",
-        "key1": [
-            "value1",
-            "value2"
-           ],
-        "key2": [
-               0,
-               1,
-               2
-           ]
-    }
+    "body": {},
+
+    "file": {}
 }
