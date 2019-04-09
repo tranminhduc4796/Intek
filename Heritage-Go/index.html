@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- declare the character encoding -->
+    <meta charset="utf-8">
+    <!--
+    "IE=edge" means IE should use the latest (edge) version of its
+    rendering engine
+    -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Héritage GO</title>
+    <meta name="description" content="Héritage GO is the community for heritage lovers.">
+    <!-- Favicons for various platforms -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
+    <link rel="manifest" href="./assets/img/site.webmanifest">
+    <link rel="mask-icon" href="./assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Load css -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader-wrapper">
+        <div class="preloader">
+            <img src="assets/img/preloader.gif" alt="NILA">
+            <!-- <p>Server is loading</p> -->
+            <img class="preloader__logo" src="./assets/img/logo.png">
+        </div>
+    </div>
+    <!-- virtual header for blurring -->
+    <div class="header-float"></div>
+    <!-- header -->
+    <header class="header" id="header">
+        <div class="side"></div>
+        <div class="header__center">
+            <img class="header__logo" src="./assets/img/logo.png" alt="Heritage GO logo">
+
+            <div class="header__area">
+                <div class="header__text">
+                    <div class="header__text--primary"> Hồ Chí Minh city
+                    </div>
+                    <div class="header__text--secondary"> Vietnam
+                    </div>
+                </div>
+                <i class="header__compass header__compass--spin far fa-compass"></i>
+            </div>
+
+        </div>
+        <div class="side side--right">
+            <!-- Button trigger modal -->
+            <button class="btn-login" id="btn-login" data-toggle="modal" data-target="#userLogin">Login</button>
+            <!-- Modal -->
+            <div class="modal fade" id="userLogin" tabindex="-1" role="dialog" aria-labelledby="userLoginLabel"
+                aria-hidden="true">
+                <div class="modal-dialog " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="userLoginLabel">Login</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="floating-label">
+                                <input class="floating-input" type="text" placeholder=" ">
+                                <label class="login-label">Email address</label>
+                            </div>
+                            <div class="floating-label">
+                                <input class="floating-input" type="password" placeholder=" " id="userPW">
+                                <i class="fas fa-lock lock" onclick="showHidePassword()" id="lock-icon"></i>
+                                <label class="login-label">Password</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn--long">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Content Section -->
+    <section class="content">
+        <div class="side"></div>
+        <div class="posts" id="posts">
+            <article class="post-container" id='post-container'>
+                <div class="post">
+                    <div class="post__header">
+                        <img class="user-avt" src="./assets/img/avatar.jpg" alt="avt">
+                        <div class="post__info">
+                            <div class="info__caption">
+                                <div class="info__caption--text">Faifo market</div>
+                                <input type="text" class="info__caption--input" placeholder="Type here..." onfocusout="returnNormalState(this)"
+                                    onfocus="suggestPhotoCaptionWithEnter(this)">
+                                <div class="dropdown">
+                                    <button class="post-btn" onclick="toggleDropdown(this)">
+                                        <img src="./assets/img/translate.png"
+                                            class="post-translate post-translate--shake" alt="translate">
+                                        <span class="language_name"></span>
+                                        <!-- <i class="fa fa-caret-down"></i> -->                                    </button>
+                                    <div class="dropdown-content">
+                                        <input type="text" placeholder="Search.." class="language-input"
+                                            onkeyup="filterFunction(this)">
+                                        <a id="anchor--abstract" onclick="pickLanguage(this); showInput(this);" hidden>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- <button class="caption_translate__cancel" onclick="cancelTranslate(this)">Cancel</button> -->
+                            </div>
+                            <div class="info__sub-caption">
+                                <div class="info__sub-caption--text">
+                                    <i class="location__icon fas fa-map-marker-alt"></i>
+                                    <p class="location__name">Hoi An, Viet Nam</p>
+                                </div>
+                                <div class="post__time">
+                                    <i class="far fa-clock"></i>
+                                    <time class="year--canchange">1965</time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post__image">
+                        <img class="post__img" src="./assets/img/heritage_faifomarket.jpg" alt="">
+                    </div>
+                    <div class="post__reaction">
+                        <div class="reaction__like" onclick="likeReaction(this)">
+                            <i class="fas fa-heart post-icon"></i>
+                            <p class="like--count">0</p>
+                        </div>
+                        <div class="reaction__comment">
+                            <i class="fas fa-comment post-icon"></i>
+                            <p class="comment--count">0</p>
+                        </div>
+                        <div class="reaction__photo">
+                            <i class="fas fa-camera post-icon"></i>
+                            <p class="photo--count">0</p>
+                        </div>
+                        <div class="reaction__bookmark post-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="post__comment">
+                        <form class="comment__form">
+                            <input class="form__input" type="text" placeholder="Write a comment">
+                            <button class="form__button" type="submit">
+                                <i class="fab fa-telegram-plane post-icon--small"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <!-- End content -->
+
+        <div class="side"></div>
+    </section>
+    <footer>
+
+    </footer>
+    <!-- Custom JS -->
+    <script src="./assets/js/language_dict.js"></script>
+    <script src="./assets/js/heritagego-service.1.0.0.js"></script>
+    <!-- JQuery JS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous">
+    </script>
+    <!-- Preloader -->
+    <script src="./assets/js/myscript.js"></script>
+    <!-- <script src="./assets/js/preloader.js"></script> -->
+    <!-- Ajax JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <!-- Bootstrap JS-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
