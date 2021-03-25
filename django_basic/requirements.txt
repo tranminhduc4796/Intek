@@ -18,7 +18,7 @@ Pygments==2.2.0
 pygobject==3.26.1
 python-dateutil==2.6.1
 pyxdg==0.25
-PyYAML==3.12
+PyYAML==5.4
 roman==2.0.0
 rospkg==1.1.4
 SecretStorage==2.3.1
